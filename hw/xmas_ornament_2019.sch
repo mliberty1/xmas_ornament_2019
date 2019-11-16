@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE eagle SYSTEM "eagle.dtd">
-<eagle version="9.5.1">
+<eagle version="9.5.2">
 <drawing>
 <settings>
 <setting alwaysvectorfont="yes"/>
@@ -2828,12 +2828,22 @@ Real products should not use this!&lt;/p&gt;</description>
 <wire x1="58.42" y1="172.72" x2="58.42" y2="180.34" width="0.1524" layer="91"/>
 <label x="58.42" y="175.26" size="1.778" layer="95" rot="R90"/>
 </segment>
+<segment>
+<pinref part="R1" gate="G$1" pin="2A"/>
+<wire x1="365.76" y1="116.84" x2="378.46" y2="116.84" width="0.1524" layer="91"/>
+<label x="378.46" y="116.84" size="1.778" layer="95"/>
+</segment>
 </net>
 <net name="D3" class="0">
 <segment>
 <pinref part="D3" gate="G$1" pin="A"/>
 <wire x1="66.04" y1="172.72" x2="66.04" y2="180.34" width="0.1524" layer="91"/>
 <label x="66.04" y="175.26" size="1.778" layer="95" rot="R90"/>
+</segment>
+<segment>
+<pinref part="R1" gate="G$1" pin="3A"/>
+<wire x1="365.76" y1="119.38" x2="378.46" y2="119.38" width="0.1524" layer="91"/>
+<label x="378.46" y="119.38" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="D4" class="0">
@@ -2842,12 +2852,23 @@ Real products should not use this!&lt;/p&gt;</description>
 <wire x1="73.66" y1="172.72" x2="73.66" y2="180.34" width="0.1524" layer="91"/>
 <label x="73.66" y="175.26" size="1.778" layer="95" rot="R90"/>
 </segment>
+<segment>
+<pinref part="R1" gate="G$1" pin="1A"/>
+<wire x1="365.76" y1="114.3" x2="378.46" y2="114.3" width="0.1524" layer="91"/>
+<label x="378.46" y="114.3" size="1.778" layer="95"/>
+</segment>
 </net>
 <net name="D5" class="0">
 <segment>
 <pinref part="D5" gate="G$1" pin="A"/>
 <wire x1="81.28" y1="172.72" x2="81.28" y2="180.34" width="0.1524" layer="91"/>
 <label x="81.28" y="175.26" size="1.778" layer="95" rot="R90"/>
+</segment>
+<segment>
+<pinref part="R3" gate="G$1" pin="4A"/>
+<wire x1="299.72" y1="60.96" x2="299.72" y2="55.88" width="0.1524" layer="91"/>
+<wire x1="299.72" y1="55.88" x2="309.88" y2="55.88" width="0.1524" layer="91"/>
+<label x="309.88" y="55.88" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="D6" class="0">
@@ -2856,12 +2877,24 @@ Real products should not use this!&lt;/p&gt;</description>
 <wire x1="88.9" y1="172.72" x2="88.9" y2="180.34" width="0.1524" layer="91"/>
 <label x="88.9" y="175.26" size="1.778" layer="95" rot="R90"/>
 </segment>
+<segment>
+<pinref part="R3" gate="G$1" pin="3A"/>
+<wire x1="297.18" y1="60.96" x2="297.18" y2="53.34" width="0.1524" layer="91"/>
+<wire x1="297.18" y1="53.34" x2="309.88" y2="53.34" width="0.1524" layer="91"/>
+<label x="309.88" y="53.34" size="1.778" layer="95"/>
+</segment>
 </net>
 <net name="D7" class="0">
 <segment>
 <pinref part="D7" gate="G$1" pin="A"/>
 <wire x1="96.52" y1="172.72" x2="96.52" y2="180.34" width="0.1524" layer="91"/>
 <label x="96.52" y="175.26" size="1.778" layer="95" rot="R90"/>
+</segment>
+<segment>
+<pinref part="R2" gate="G$1" pin="4A"/>
+<wire x1="261.62" y1="60.96" x2="261.62" y2="58.42" width="0.1524" layer="91"/>
+<wire x1="261.62" y1="58.42" x2="266.7" y2="58.42" width="0.1524" layer="91"/>
+<label x="266.7" y="58.42" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="D8" class="0">
@@ -2870,6 +2903,12 @@ Real products should not use this!&lt;/p&gt;</description>
 <wire x1="104.14" y1="172.72" x2="104.14" y2="180.34" width="0.1524" layer="91"/>
 <label x="104.14" y="175.26" size="1.778" layer="95" rot="R90"/>
 </segment>
+<segment>
+<pinref part="R2" gate="G$1" pin="3A"/>
+<wire x1="259.08" y1="60.96" x2="259.08" y2="55.88" width="0.1524" layer="91"/>
+<wire x1="259.08" y1="55.88" x2="266.7" y2="55.88" width="0.1524" layer="91"/>
+<label x="266.7" y="55.88" size="1.778" layer="95"/>
+</segment>
 </net>
 <net name="D9" class="0">
 <segment>
@@ -2877,12 +2916,24 @@ Real products should not use this!&lt;/p&gt;</description>
 <wire x1="111.76" y1="172.72" x2="111.76" y2="180.34" width="0.1524" layer="91"/>
 <label x="111.76" y="175.26" size="1.778" layer="95" rot="R90"/>
 </segment>
+<segment>
+<pinref part="R2" gate="G$1" pin="2A"/>
+<wire x1="256.54" y1="60.96" x2="256.54" y2="53.34" width="0.1524" layer="91"/>
+<wire x1="256.54" y1="53.34" x2="266.7" y2="53.34" width="0.1524" layer="91"/>
+<label x="266.7" y="53.34" size="1.778" layer="95"/>
+</segment>
 </net>
 <net name="D10" class="0">
 <segment>
 <pinref part="D10" gate="G$1" pin="A"/>
 <wire x1="119.38" y1="172.72" x2="119.38" y2="180.34" width="0.1524" layer="91"/>
 <label x="119.38" y="175.26" size="1.778" layer="95" rot="R90"/>
+</segment>
+<segment>
+<pinref part="R2" gate="G$1" pin="1A"/>
+<wire x1="254" y1="60.96" x2="254" y2="50.8" width="0.1524" layer="91"/>
+<wire x1="254" y1="50.8" x2="266.7" y2="50.8" width="0.1524" layer="91"/>
+<label x="266.7" y="50.8" size="1.778" layer="95"/>
 </segment>
 </net>
 </nets>
