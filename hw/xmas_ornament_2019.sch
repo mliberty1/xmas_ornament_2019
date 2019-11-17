@@ -846,20 +846,14 @@
 <vertex x="0.7" y="0.7365"/>
 </polygon>
 </package>
-<package name="TP-PTH0.015">
-<pad name="1" x="0" y="0" drill="0.381"/>
-</package>
-<package name="TP-PTH0.02">
-<pad name="1" x="0" y="0" drill="0.508"/>
-</package>
 <package name="USB-A_PCB">
-<smd name="1" x="-3.5" y="1.055" dx="7.41" dy="1.5" layer="1" rot="R90"/>
+<smd name="1" x="-3.5" y="1.055" dx="7.41" dy="1.5" layer="1" rot="R90" cream="no"/>
 <wire x1="-6" y1="-6" x2="-6" y2="6" width="0.127" layer="21"/>
 <wire x1="-6" y1="6" x2="6" y2="6" width="0.127" layer="21"/>
 <wire x1="6" y1="6" x2="6" y2="-6" width="0.127" layer="21"/>
-<smd name="4" x="3.5" y="1.055" dx="7.41" dy="1.5" layer="1" rot="R90"/>
-<smd name="2" x="-1" y="0.555" dx="6.41" dy="1.25" layer="1" rot="R90"/>
-<smd name="3" x="1" y="0.555" dx="6.41" dy="1.25" layer="1" rot="R90"/>
+<smd name="4" x="3.5" y="1.055" dx="7.41" dy="1.5" layer="1" rot="R90" cream="no"/>
+<smd name="2" x="-1" y="0.555" dx="6.41" dy="1.25" layer="1" rot="R90" cream="no"/>
+<smd name="3" x="1" y="0.555" dx="6.41" dy="1.25" layer="1" rot="R90" cream="no"/>
 <text x="-3" y="-4" size="0.75" layer="51">12 mm wide</text>
 <wire x1="-6" y1="-6" x2="6" y2="-6" width="0.127" layer="21" style="shortdash"/>
 <rectangle x1="-6" y1="-6" x2="6" y2="6" layer="39"/>
@@ -1198,11 +1192,6 @@ Keystone 967</description>
 <vertex x="-2.921" y="0.127"/>
 <vertex x="-2.413" y="-0.381"/>
 </polygon>
-</symbol>
-<symbol name="TP">
-<pin name="TP" x="-5.08" y="0" visible="off" length="middle"/>
-<circle x="0" y="0" radius="1.016" width="0.254" layer="94"/>
-<text x="2.54" y="0" size="1.27" layer="95" align="center-left">&gt;NAME</text>
 </symbol>
 <symbol name="USB-4-PCB">
 <pin name="D+" x="-12.7" y="0" length="middle"/>
@@ -1712,31 +1701,6 @@ Standard single-element LEDs.
 </device>
 </devices>
 </deviceset>
-<deviceset name="TP" prefix="TP">
-<gates>
-<gate name="G$1" symbol="TP" x="0" y="0"/>
-</gates>
-<devices>
-<device name="TP-PTH0.015" package="TP-PTH0.015">
-<connects>
-<connect gate="G$1" pin="TP" pad="1"/>
-</connects>
-<technologies>
-<technology name=""/>
-</technologies>
-</device>
-<device name="TP-PTH0.02" package="TP-PTH0.02">
-<connects>
-<connect gate="G$1" pin="TP" pad="1"/>
-</connects>
-<technologies>
-<technology name="">
-<attribute name="POPULATE" value="0"/>
-</technology>
-</technologies>
-</device>
-</devices>
-</deviceset>
 <deviceset name="USB-4-PCB" prefix="P" uservalue="yes">
 <description>&lt;h1&gt;USB 2 Type A 4-pin PCB plug&lt;/h1&gt;
 
@@ -1990,10 +1954,17 @@ Real products should not use this!&lt;/p&gt;</description>
 <attribute name="VOLTAGE" value="10V"/>
 </part>
 <part name="PWR9" library="jetperch" deviceset="GND_EARTH" device=""/>
-<part name="TP1" library="jetperch" deviceset="TP" device="TP-PTH0.02"/>
-<part name="P1" library="jetperch" deviceset="USB-4-PCB" device="-A"/>
-<part name="S1" library="jetperch" deviceset="SWITCH-DP3T" device="_JS203011SCQN"/>
-<part name="B1" library="jetperch" deviceset="BATTERY" device="_BU2450SM-JJ-G"/>
+<part name="P1" library="jetperch" deviceset="USB-4-PCB" device="-A" value="PCB_connector">
+<attribute name="POPULATE" value="0"/>
+</part>
+<part name="SW1" library="jetperch" deviceset="SWITCH-DP3T" device="_JS203011SCQN" value="JS203011SCQN">
+<attribute name="MPN" value="JS203011SCQN"/>
+<attribute name="POPULATE" value="1"/>
+</part>
+<part name="J2" library="jetperch" deviceset="BATTERY" device="_BU2450SM-JJ-G" value="BU2450-SM-JJ-GTR">
+<attribute name="MPN" value="BU2450-SM-JJ-GTR"/>
+<attribute name="POPULATE" value="1"/>
+</part>
 <part name="PWR6" library="jetperch" deviceset="GND_EARTH" device=""/>
 <part name="D6" library="jetperch" deviceset="LED" device="0805_BREV" value="APT2012LSYCK/J3-PRV">
 <attribute name="MPN" value="APT2012LSYCK/J3-PRV"/>
@@ -2066,7 +2037,10 @@ Real products should not use this!&lt;/p&gt;</description>
 <attribute name="TOLERANCE" value="5%"/>
 <attribute name="WATTAGE" value="0.062W"/>
 </part>
-<part name="B2" library="jetperch" deviceset="SWITCH-SPST-NO" device=""/>
+<part name="SW2" library="jetperch" deviceset="SWITCH-SPST-NO" device="" value="PTS645SM43SMTR92 LFS">
+<attribute name="MPN" value="PTS645SM43SMTR92 LFS"/>
+<attribute name="POPULATE" value="1"/>
+</part>
 <part name="PWR7" library="jetperch" deviceset="GND_EARTH" device=""/>
 <part name="PWR8" library="jetperch" deviceset="GND_EARTH" device=""/>
 <part name="PWR10" library="jetperch" deviceset="GND_EARTH" device=""/>
@@ -2219,17 +2193,20 @@ Real products should not use this!&lt;/p&gt;</description>
 <attribute name="DIELECTRIC" x="215.138" y="107.95" size="0.254" layer="97" rot="R90"/>
 </instance>
 <instance part="PWR9" gate="G$1" x="213.36" y="96.52" smashed="yes"/>
-<instance part="TP1" gate="G$1" x="205.74" y="147.32" smashed="yes" rot="R180">
-<attribute name="NAME" x="203.2" y="147.32" size="1.27" layer="95" rot="R180" align="center-left"/>
-</instance>
 <instance part="P1" gate="G1" x="30.48" y="45.72" smashed="yes" rot="MR0">
 <attribute name="NAME" x="38.1" y="53.848" size="1.778" layer="95" rot="MR0"/>
 <attribute name="VALUE" x="29.464" y="38.1" size="1.778" layer="96" rot="MR0"/>
+<attribute name="POPULATE" x="30.48" y="45.72" size="1.778" layer="96" rot="MR0" display="off"/>
 </instance>
-<instance part="S1" gate="G$1" x="198.12" y="58.42" smashed="yes" rot="MR0">
+<instance part="SW1" gate="G$1" x="198.12" y="58.42" smashed="yes" rot="MR0">
 <attribute name="NAME" x="200.66" y="66.04" size="1.27" layer="95" rot="MR0"/>
+<attribute name="MPN" x="198.12" y="58.42" size="1.778" layer="96" rot="MR0" display="off"/>
+<attribute name="POPULATE" x="198.12" y="58.42" size="1.778" layer="96" rot="MR0" display="off"/>
 </instance>
-<instance part="B1" gate="G$1" x="142.24" y="73.66" smashed="yes"/>
+<instance part="J2" gate="G$1" x="142.24" y="73.66" smashed="yes">
+<attribute name="MPN" x="142.24" y="73.66" size="1.778" layer="96" display="off"/>
+<attribute name="POPULATE" x="142.24" y="73.66" size="1.778" layer="96" display="off"/>
+</instance>
 <instance part="PWR6" gate="G$1" x="142.24" y="60.96" smashed="yes"/>
 <instance part="D6" gate="G$1" x="88.9" y="167.64" smashed="yes">
 <attribute name="NAME" x="89.408" y="166.878" size="1.27" layer="95" rot="R270"/>
@@ -2321,8 +2298,10 @@ Real products should not use this!&lt;/p&gt;</description>
 <attribute name="NAME" x="353.314" y="111.506" size="1.27" layer="95" rot="R180" align="bottom-right"/>
 <attribute name="VALUE" x="362.966" y="126.746" size="1.27" layer="95" rot="R180"/>
 </instance>
-<instance part="B2" gate="G$1" x="99.06" y="109.22" smashed="yes" rot="MR0">
+<instance part="SW2" gate="G$1" x="99.06" y="109.22" smashed="yes" rot="MR0">
 <attribute name="NAME" x="98.552" y="109.474" size="1.778" layer="95" rot="MR0"/>
+<attribute name="MPN" x="99.06" y="109.22" size="1.778" layer="96" rot="MR0" display="off"/>
+<attribute name="POPULATE" x="99.06" y="109.22" size="1.778" layer="96" rot="MR0" display="off"/>
 </instance>
 <instance part="PWR7" gate="G$1" x="187.96" y="43.18" smashed="yes"/>
 <instance part="PWR8" gate="G$1" x="50.8" y="157.48" smashed="yes"/>
@@ -2442,26 +2421,26 @@ Real products should not use this!&lt;/p&gt;</description>
 <wire x1="213.36" y1="99.06" x2="213.36" y2="101.6" width="0.1524" layer="91"/>
 </segment>
 <segment>
-<pinref part="B1" gate="G$1" pin="-"/>
+<pinref part="J2" gate="G$1" pin="-"/>
 <pinref part="PWR6" gate="G$1" pin="GND"/>
 <wire x1="142.24" y1="68.58" x2="142.24" y2="66.04" width="0.1524" layer="91"/>
-<pinref part="S1" gate="G$1" pin="A1"/>
+<pinref part="SW1" gate="G$1" pin="A1"/>
 <wire x1="142.24" y1="66.04" x2="142.24" y2="63.5" width="0.1524" layer="91"/>
 <wire x1="190.5" y1="66.04" x2="142.24" y2="66.04" width="0.1524" layer="91"/>
 <junction x="142.24" y="66.04"/>
 </segment>
 <segment>
-<pinref part="S1" gate="G$1" pin="B2"/>
+<pinref part="SW1" gate="G$1" pin="B2"/>
 <wire x1="190.5" y1="53.34" x2="187.96" y2="53.34" width="0.1524" layer="91"/>
 <pinref part="PWR7" gate="G$1" pin="GND"/>
 <wire x1="187.96" y1="53.34" x2="187.96" y2="45.72" width="0.1524" layer="91"/>
-<pinref part="S1" gate="G$1" pin="A2"/>
+<pinref part="SW1" gate="G$1" pin="A2"/>
 <wire x1="190.5" y1="63.5" x2="187.96" y2="63.5" width="0.1524" layer="91"/>
 <wire x1="187.96" y1="63.5" x2="187.96" y2="53.34" width="0.1524" layer="91"/>
 <junction x="187.96" y="53.34"/>
 </segment>
 <segment>
-<pinref part="B2" gate="G$1" pin="P$2"/>
+<pinref part="SW2" gate="G$1" pin="P$2"/>
 <wire x1="93.98" y1="109.22" x2="91.44" y2="109.22" width="0.1524" layer="91"/>
 <pinref part="PWR10" gate="G$1" pin="GND"/>
 <wire x1="91.44" y1="109.22" x2="91.44" y2="106.68" width="0.1524" layer="91"/>
@@ -2578,7 +2557,7 @@ Real products should not use this!&lt;/p&gt;</description>
 <junction x="355.6" y="246.38"/>
 </segment>
 <segment>
-<pinref part="S1" gate="G$1" pin="B_COM"/>
+<pinref part="SW1" gate="G$1" pin="B_COM"/>
 <wire x1="203.2" y1="53.34" x2="205.74" y2="53.34" width="0.1524" layer="91"/>
 <label x="213.36" y="53.34" size="1.778" layer="95"/>
 <pinref part="C1" gate="A" pin="2"/>
@@ -2689,19 +2668,16 @@ Real products should not use this!&lt;/p&gt;</description>
 <wire x1="226.06" y1="147.32" x2="213.36" y2="147.32" width="0.1524" layer="91"/>
 <wire x1="213.36" y1="147.32" x2="213.36" y2="111.76" width="0.1524" layer="91"/>
 <pinref part="C5" gate="A" pin="2"/>
-<pinref part="TP1" gate="G$1" pin="TP"/>
-<wire x1="213.36" y1="147.32" x2="210.82" y2="147.32" width="0.1524" layer="91"/>
-<junction x="213.36" y="147.32"/>
 <label x="218.44" y="147.32" size="1.27" layer="95"/>
 </segment>
 </net>
 <net name="VUSB_3V3" class="0">
 <segment>
 <pinref part="U1" gate="G$1" pin="OUT"/>
-<pinref part="S1" gate="G$1" pin="B3"/>
+<pinref part="SW1" gate="G$1" pin="B3"/>
 <wire x1="172.72" y1="50.8" x2="182.88" y2="50.8" width="0.1524" layer="91"/>
 <wire x1="182.88" y1="50.8" x2="190.5" y2="50.8" width="0.1524" layer="91"/>
-<pinref part="S1" gate="G$1" pin="A3"/>
+<pinref part="SW1" gate="G$1" pin="A3"/>
 <wire x1="190.5" y1="60.96" x2="182.88" y2="60.96" width="0.1524" layer="91"/>
 <wire x1="182.88" y1="60.96" x2="182.88" y2="50.8" width="0.1524" layer="91"/>
 <junction x="182.88" y="50.8"/>
@@ -2711,9 +2687,9 @@ Real products should not use this!&lt;/p&gt;</description>
 <net name="VBATT" class="0">
 <segment>
 <wire x1="177.8" y1="81.28" x2="142.24" y2="81.28" width="0.1524" layer="91"/>
-<pinref part="B1" gate="G$1" pin="+"/>
+<pinref part="J2" gate="G$1" pin="+"/>
 <wire x1="142.24" y1="81.28" x2="142.24" y2="78.74" width="0.1524" layer="91"/>
-<pinref part="S1" gate="G$1" pin="B1"/>
+<pinref part="SW1" gate="G$1" pin="B1"/>
 <wire x1="190.5" y1="55.88" x2="177.8" y2="55.88" width="0.1524" layer="91"/>
 <wire x1="177.8" y1="55.88" x2="177.8" y2="81.28" width="0.1524" layer="91"/>
 <label x="147.32" y="81.28" size="1.778" layer="95"/>
@@ -2721,9 +2697,12 @@ Real products should not use this!&lt;/p&gt;</description>
 </net>
 <net name="!BATTERY" class="0">
 <segment>
-<pinref part="S1" gate="G$1" pin="A_COM"/>
-<wire x1="203.2" y1="63.5" x2="213.36" y2="63.5" width="0.1524" layer="91"/>
-<label x="213.36" y="63.5" size="1.778" layer="95"/>
+<pinref part="SW1" gate="G$1" pin="A_COM"/>
+<wire x1="203.2" y1="63.5" x2="218.44" y2="63.5" width="0.1524" layer="91"/>
+<label x="205.74" y="63.5" size="1.778" layer="95"/>
+<pinref part="U2" gate="G$1" pin="PA04/A3"/>
+<wire x1="226.06" y1="132.08" x2="218.44" y2="132.08" width="0.1524" layer="91"/>
+<wire x1="218.44" y1="132.08" x2="218.44" y2="63.5" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$1" class="0">
@@ -2934,6 +2913,16 @@ Real products should not use this!&lt;/p&gt;</description>
 <wire x1="254" y1="60.96" x2="254" y2="50.8" width="0.1524" layer="91"/>
 <wire x1="254" y1="50.8" x2="266.7" y2="50.8" width="0.1524" layer="91"/>
 <label x="266.7" y="50.8" size="1.778" layer="95"/>
+</segment>
+</net>
+<net name="BUTTON" class="0">
+<segment>
+<pinref part="SW2" gate="G$1" pin="P$1"/>
+<label x="121.92" y="109.22" size="1.778" layer="95"/>
+<pinref part="U2" gate="G$1" pin="PB08/A1"/>
+<wire x1="226.06" y1="142.24" x2="170.18" y2="142.24" width="0.1524" layer="91"/>
+<wire x1="170.18" y1="142.24" x2="170.18" y2="109.22" width="0.1524" layer="91"/>
+<wire x1="170.18" y1="109.22" x2="109.22" y2="109.22" width="0.1524" layer="91"/>
 </segment>
 </net>
 </nets>

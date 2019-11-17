@@ -1,0 +1,355 @@
+{
+  "C1": {
+    "value": "10uF",
+    "device": "CAP_0805",
+    "sheet": 1,
+    "attributes": {
+      "DIELECTRIC": "X7R",
+      "MPN": "JMK212AB7106KGHT",
+      "POPULATE": "1",
+      "TOLERANCE": "20%",
+      "VOLTAGE": "6.3V"
+    }
+  },
+  "C2": {
+    "value": "100nF",
+    "device": "CAP_0603",
+    "sheet": 1,
+    "attributes": {
+      "DIELECTRIC": "X5R",
+      "MPN": "CC0603KRX7R9BB104",
+      "POPULATE": "1",
+      "TOLERANCE": "20%",
+      "VOLTAGE": "50V"
+    }
+  },
+  "C3": {
+    "value": "10uF",
+    "device": "CAP_0805",
+    "sheet": 1,
+    "attributes": {
+      "DIELECTRIC": "X7R",
+      "MPN": "JMK212AB7106KGHT",
+      "POPULATE": "1",
+      "TOLERANCE": "20%",
+      "VOLTAGE": "6.3V"
+    }
+  },
+  "C4": {
+    "value": "100nF",
+    "device": "CAP_0603",
+    "sheet": 1,
+    "attributes": {
+      "DIELECTRIC": "X5R",
+      "MPN": "CC0603KRX7R9BB104",
+      "POPULATE": "1",
+      "TOLERANCE": "20%",
+      "VOLTAGE": "50V"
+    }
+  },
+  "C5": {
+    "value": "1uF",
+    "device": "CAP_0603",
+    "sheet": 1,
+    "attributes": {
+      "DIELECTRIC": "X5R",
+      "MPN": "CC0603KRX5R6BB105",
+      "POPULATE": "1",
+      "TOLERANCE": "20%",
+      "VOLTAGE": "10V"
+    }
+  },
+  "C6": {
+    "value": "10uF",
+    "device": "CAP_0805",
+    "sheet": 1,
+    "attributes": {
+      "DIELECTRIC": "X7R",
+      "MPN": "JMK212AB7106KGHT",
+      "POPULATE": "1",
+      "TOLERANCE": "20%",
+      "VOLTAGE": "6.3V"
+    }
+  },
+  "C7": {
+    "value": "100nF",
+    "device": "CAP_0603",
+    "sheet": 1,
+    "attributes": {
+      "DIELECTRIC": "X5R",
+      "MPN": "CC0603KRX7R9BB104",
+      "POPULATE": "1",
+      "TOLERANCE": "20%",
+      "VOLTAGE": "50V"
+    }
+  },
+  "C8": {
+    "value": "100nF",
+    "device": "CAP_0603",
+    "sheet": 1,
+    "attributes": {
+      "DIELECTRIC": "X5R",
+      "MPN": "CC0603KRX7R9BB104",
+      "POPULATE": "1",
+      "TOLERANCE": "20%",
+      "VOLTAGE": "50V"
+    }
+  },
+  "C9": {
+    "value": "1uF",
+    "device": "CAP_0603",
+    "sheet": 1,
+    "attributes": {
+      "DIELECTRIC": "X5R",
+      "MPN": "CC0603KRX5R6BB105",
+      "POPULATE": "1",
+      "TOLERANCE": "20%",
+      "VOLTAGE": "10V"
+    }
+  },
+  "C10": {
+    "value": "18pF",
+    "device": "CAP_0603",
+    "sheet": 1,
+    "attributes": {
+      "DIELECTRIC": "C0G",
+      "MPN": "GRM1885C1H220JA01D",
+      "POPULATE": "1",
+      "TOLERANCE": "5%",
+      "VOLTAGE": "50V"
+    }
+  },
+  "C11": {
+    "value": "18pF",
+    "device": "CAP_0603",
+    "sheet": 1,
+    "attributes": {
+      "DIELECTRIC": "C0G",
+      "MPN": "GRM1885C1H220JA01D",
+      "POPULATE": "1",
+      "TOLERANCE": "5%",
+      "VOLTAGE": "50V"
+    }
+  },
+  "D1": {
+    "value": "APT2012LSYCK/J3-PRV",
+    "device": "LED0805_BREV",
+    "sheet": 1,
+    "attributes": {
+      "MPN": "APT2012LSYCK/J3-PRV",
+      "POPULATE": "1"
+    }
+  },
+  "D2": {
+    "value": "APT2012LSYCK/J3-PRV",
+    "device": "LED0805_BREV",
+    "sheet": 1,
+    "attributes": {
+      "MPN": "APT2012LSYCK/J3-PRV",
+      "POPULATE": "1"
+    }
+  },
+  "D3": {
+    "value": "APT2012LSYCK/J3-PRV",
+    "device": "LED0805_BREV",
+    "sheet": 1,
+    "attributes": {
+      "MPN": "APT2012LSYCK/J3-PRV",
+      "POPULATE": "1"
+    }
+  },
+  "D4": {
+    "value": "APT2012LSYCK/J3-PRV",
+    "device": "LED0805_BREV",
+    "sheet": 1,
+    "attributes": {
+      "MPN": "APT2012LSYCK/J3-PRV",
+      "POPULATE": "1"
+    }
+  },
+  "D5": {
+    "value": "APT2012LSYCK/J3-PRV",
+    "device": "LED0805_BREV",
+    "sheet": 1,
+    "attributes": {
+      "MPN": "APT2012LSYCK/J3-PRV",
+      "POPULATE": "1"
+    }
+  },
+  "D6": {
+    "value": "APT2012LSYCK/J3-PRV",
+    "device": "LED0805_BREV",
+    "sheet": 1,
+    "attributes": {
+      "MPN": "APT2012LSYCK/J3-PRV",
+      "POPULATE": "1"
+    }
+  },
+  "D7": {
+    "value": "APT2012LSYCK/J3-PRV",
+    "device": "LED0805_BREV",
+    "sheet": 1,
+    "attributes": {
+      "MPN": "APT2012LSYCK/J3-PRV",
+      "POPULATE": "1"
+    }
+  },
+  "D8": {
+    "value": "APT2012LSYCK/J3-PRV",
+    "device": "LED0805_BREV",
+    "sheet": 1,
+    "attributes": {
+      "MPN": "APT2012LSYCK/J3-PRV",
+      "POPULATE": "1"
+    }
+  },
+  "D9": {
+    "value": "APT2012LSYCK/J3-PRV",
+    "device": "LED0805_BREV",
+    "sheet": 1,
+    "attributes": {
+      "MPN": "APT2012LSYCK/J3-PRV",
+      "POPULATE": "1"
+    }
+  },
+  "D10": {
+    "value": "APT2012LSYCK/J3-PRV",
+    "device": "LED0805_BREV",
+    "sheet": 1,
+    "attributes": {
+      "MPN": "APT2012LSYCK/J3-PRV",
+      "POPULATE": "1"
+    }
+  },
+  "FB1": {
+    "value": "1k @ 100MHz",
+    "device": "FERRITE_BEAD_0603",
+    "sheet": 1,
+    "attributes": {
+      "MPN": "742792663",
+      "POPULATE": "1"
+    }
+  },
+  "FB2": {
+    "value": "1k @ 100MHz",
+    "device": "FERRITE_BEAD_0603",
+    "sheet": 1,
+    "attributes": {
+      "MPN": "742792663",
+      "POPULATE": "1"
+    }
+  },
+  "J1": {
+    "value": "ARM_SWD_10_TAG",
+    "device": "ARM_SWD_10_TAG",
+    "sheet": 1,
+    "attributes": {
+      "POPULATE": "0"
+    }
+  },
+  "J2": {
+    "value": "BU2450-SM-JJ-GTR",
+    "device": "BATTERY_BU2450SM-JJ-G",
+    "sheet": 1,
+    "attributes": {
+      "MPN": "BU2450-SM-JJ-GTR",
+      "POPULATE": "1"
+    }
+  },
+  "P1": {
+    "value": "PCB_connector",
+    "device": "USB-4-PCB-A",
+    "sheet": 1,
+    "attributes": {
+      "POPULATE": "0"
+    }
+  },
+  "R1": {
+    "value": "330",
+    "device": "RESISTOR_4_1206",
+    "sheet": 1,
+    "attributes": {
+      "MPN": "EXB-38V331JV",
+      "POPULATE": "1",
+      "TEMP_CO": "200 ppm/°C",
+      "TOLERANCE": "5%",
+      "WATTAGE": "0.062W"
+    }
+  },
+  "R2": {
+    "value": "330",
+    "device": "RESISTOR_4_1206",
+    "sheet": 1,
+    "attributes": {
+      "MPN": "EXB-38V331JV",
+      "POPULATE": "1",
+      "TEMP_CO": "200 ppm/°C",
+      "TOLERANCE": "5%",
+      "WATTAGE": "0.062W"
+    }
+  },
+  "R3": {
+    "value": "330",
+    "device": "RESISTOR_4_1206",
+    "sheet": 1,
+    "attributes": {
+      "MPN": "EXB-38V331JV",
+      "POPULATE": "1",
+      "TEMP_CO": "200 ppm/°C",
+      "TOLERANCE": "5%",
+      "WATTAGE": "0.062W"
+    }
+  },
+  "SW1": {
+    "value": "JS203011SCQN",
+    "device": "SWITCH-DP3T_JS203011SCQN",
+    "sheet": 1,
+    "attributes": {
+      "MPN": "JS203011SCQN",
+      "POPULATE": "1"
+    }
+  },
+  "SW2": {
+    "value": "PTS645SM43SMTR92 LFS",
+    "device": "SWITCH-SPST-NO",
+    "sheet": 1,
+    "attributes": {
+      "MPN": "PTS645SM43SMTR92 LFS",
+      "POPULATE": "1"
+    }
+  },
+  "U1": {
+    "value": "TLV75533PDBVR",
+    "device": "VREG_FIXED+_ENTPS70960DBV",
+    "sheet": 1,
+    "attributes": {
+      "MPN": "TLV75533PDBVR",
+      "POPULATE": "1"
+    }
+  },
+  "U2": {
+    "value": "ATSAMD21G18A-MUT",
+    "device": "SAMD21G18A-MUT",
+    "sheet": 1,
+    "attributes": {
+      "POPULATE": "1"
+    }
+  },
+  "U3": {
+    "value": "PRTR5V0U2X",
+    "device": "PRTR5V0U2X",
+    "sheet": 1,
+    "attributes": {
+      "MPN": "PRTR5V0U2X,215",
+      "POPULATE": "1"
+    }
+  },
+  "X1": {
+    "value": "FC-135 32.7680KA-A5",
+    "device": "XTAL-2_3.2X1.5",
+    "sheet": 1,
+    "attributes": {
+      "POPULATE": "1"
+    }
+  }
+}
