@@ -16,13 +16,16 @@
 #define BUTTON A1
 #define POWER_USB A3
 
-#define MODES (3)
+#define MODES (2)
 
 
 #define ARRAY_SIZE(x) (sizeof(x) / sizeof(x[0]))
+#define ADC_BITS (12)
 
-const int leds[] = {LED_01, LED_04, LED_03, LED_02, LED_05, LED_06, LED_07, LED_08, LED_09, LED_10};
+const byte leds[] = {LED_01, LED_04, LED_03, LED_02, LED_05, LED_06, LED_07, LED_08, LED_09, LED_10};
 const int leds_len = ARRAY_SIZE(leds);
+
+int pwm_table[256];
 
 uint64_t button_time_start = 0;
 int button_last = 0;
@@ -30,6 +33,11 @@ int mode = 0;
 int state = 0;
 
 void setup() {
+  analogWriteResolution(ADC_BITS);
+  float r = 255 * log10(2) / (log10(pow(2, ADC_BITS) - 1));
+  for (int i = 0; i < 256; ++i) {
+    pwm_table[i] = (int) (round(pow(2, i / r) - 1));
+  }
   Serial.begin(9600);
   Serial.println("\n\nLiberty christmas ornament 2019");
   for (int i = 0; i < ARRAY_SIZE(leds); ++i) {
@@ -51,10 +59,17 @@ void clear() {
   state = 0;
 }
 
-void mode_sequential() {
-  digitalWrite(leds[state], 1);
+void mode_sequential_analog() {
+  for (int i = 0; i <= 255; ++i) {
+    analogWrite(leds[state], pwm_table[i]);
+    delayMicroseconds(1500);
+  }
   delay(100);
-  digitalWrite(leds[state], 0);
+  for (int i = 255; i >= 0; --i) {
+    analogWrite(leds[state], pwm_table[i]);
+    delayMicroseconds(1500);
+  }
+  analogWrite(leds[state], 0);
   ++state;
   if (state >= ARRAY_SIZE(leds)) {
     state = 0;
@@ -76,6 +91,11 @@ void mode_all_on(int intensity) {
   for (int i = 0; i < ARRAY_SIZE(leds); ++i) {
     analogWrite(leds[i], intensity);
   }
+}
+
+void mode_dev() {
+  ++state;
+  
 }
 
 void mode_random_fade() {
@@ -109,10 +129,9 @@ void loop() {
   }
 
   switch (mode) {
-    case 0: mode_all_on(255); break;
+    case 0: mode_sequential_analog(); break;
     case 1: mode_random(); break;
-    case 2: mode_sequential(); break;
-    default: mode_sequential(); break;
+    default: mode_sequential_analog(); break;
     
   }
 }
