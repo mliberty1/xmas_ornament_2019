@@ -18,57 +18,15 @@ callback.
 */
 
 #include "led.h"
+#include "button.h"
 
 const uint8_t leds[LED_COUNT] = {LED_10, LED_09, LED_08, LED_07, LED_06, LED_05, LED_02, LED_03, LED_04, LED_01};
 
-struct button_state_s {
-  bool debounce;
-  uint64_t time_start_ms;
-  int value_last;
-};
-
-button_state_s button_ = {false, 0, 1};
 int mode = 0;
 int state = 0;
 
-void mode_sequential_analog() {
-  for (int i = 0; i <= 255; ++i) {
-    led_write(state, i);
-    delayMicroseconds(1500);
-  }
-  delay(100);
-  for (int i = 255; i >= 0; --i) {
-    led_write(state, i);
-    delayMicroseconds(1500);
-  }
-  ++state;
-  if (state >= ARRAY_SIZE(leds)) {
-    state = 0;
-  }
-}
-
 void mode_set_all(void * user_data) {
   leds_write_all((int) user_data);
-}
-
-bool button_debounce() {
-  int button_next = digitalRead(BUTTON);
-  if (button_.debounce) {
-    if ((millis() - button_.time_start_ms) >= 10) {
-      button_.debounce = false;
-      if (button_.value_last && !button_next) {
-        button_.value_last = button_next;
-        return true;
-      } else {
-        button_.value_last = button_next;
-        return false;
-      }
-    }
-  } else if (button_.value_last != button_next) {
-    button_.time_start_ms = millis();
-    button_.debounce = true;
-  }
-  return false;
 }
 
 void mode_animate_sequential(void * user_data) {
@@ -107,11 +65,18 @@ struct mode_s {
   callback_fn process;
 };
 
+// Define the modes: each button press switches to the next mode.
+// Modify this structure to add your mode!
 struct mode_s modes[] = {
   {0, mode_animate_random, led_animate},
   {0, mode_animate_sequential, led_animate},
   {(void *) 0, mode_set_all, mode_wait_for_button}
 };
+
+
+// ----------------------------------------------------------------
+// Animation engine: do not modify code below
+// ----------------------------------------------------------------
 
 void setup() {
   analogWriteResolution(ADC_BITS);

@@ -11,7 +11,6 @@
 #define LED_08 1
 #define LED_09 3
 #define LED_10 4
-#define BUTTON A1
 #define POWER_USB A3
 
 #define COMMANDS_PER_LED (128)
