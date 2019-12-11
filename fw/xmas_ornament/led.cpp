@@ -71,27 +71,27 @@ bool led_is_idle(int led) {
   return (led_commands_[led][0].cmd == LED_CMD_IDLE);
 }
 
-static struct led_command_s * led_cmd_next(int led_idx) {
-  if ((led_idx < 0) || (led_idx >= LED_COUNT)) {
+static struct led_command_s * led_cmd_next(int led) {
+  if ((led < 0) || (led >= LED_COUNT)) {
     return 0;
   }
   for (int i = 0; i < COMMANDS_PER_LED; ++i) {
-    if (led_commands_[led_idx][i].cmd == LED_CMD_IDLE) {
-      return led_cmd_clear(&led_commands_[led_idx][i]);
+    if (led_commands_[led][i].cmd == LED_CMD_IDLE) {
+      return led_cmd_clear(&led_commands_[led][i]);
     }
   }
   Serial.print("too many LED commands for ");
-  Serial.print(led_idx);
+  Serial.print(led);
   Serial.println(" -- overwrite");
-  return led_cmd_clear(&led_commands_[led_idx][COMMANDS_PER_LED - 1]);
+  return led_cmd_clear(&led_commands_[led][COMMANDS_PER_LED - 1]);
 }
 
-void led_set(int led_idx, int value) {
-  led_fade(idx, value, 0);
+void led_set(int led, int value) {
+  led_fade(led, value, 0);
 }
 
-void led_fade(int led_idx, int value, int duration_ms) {
-  struct led_command_s * c = led_cmd_next(led_idx);
+void led_fade(int led, int value, int duration_ms) {
+  struct led_command_s * c = led_cmd_next(led);
   if (c) {
     c->cmd = LED_CMD_FADE;
     c->value = value;
@@ -99,20 +99,25 @@ void led_fade(int led_idx, int value, int duration_ms) {
   }
 }
 
-void led_delay(int led_idx, int duration_ms) {
-  struct led_command_s * c = led_cmd_next(led_idx);
+void led_delay(int led, int duration_ms) {
+  struct led_command_s * c = led_cmd_next(led);
   if (c) {
     c->cmd = LED_CMD_DELAY;
     c->duration_us = (unsigned long) (duration_ms * 1000);
   }
 }
 
-void led_signal(int led_idx, callback_fn cbk_fn, void * cbk_user_data) {
+void led_delay_random(int led, int duration_min_ms, int duration_max_ms) {
+  int duration_ms = random(duration_max_ms - duration_min_ms) + duration_min_ms;
+  led_delay(led, duration_ms);
+}
+
+void led_signal(int led, callback_fn cbk_fn, void * cbk_user_data) {
   if (!cbk_fn) {
     Serial.println("invalid callback");
     return;
   }
-  struct led_command_s * c = led_cmd_next(led_idx);
+  struct led_command_s * c = led_cmd_next(led);
   if (c) {
     c->cmd = LED_CMD_SIGNAL;
     c->cbk_fn = cbk_fn;
