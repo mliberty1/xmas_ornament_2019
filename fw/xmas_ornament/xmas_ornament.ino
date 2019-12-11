@@ -22,6 +22,7 @@ callback.
 #include "button.h"
 
 const uint8_t leds[LED_COUNT] = {LED_10, LED_09, LED_08, LED_07, LED_06, LED_05, LED_02, LED_03, LED_04, LED_01};
+const int ANIMATE_RANDOM_DURATION_MS = 500;
 
 int mode = 0;
 int state = 0;
@@ -33,9 +34,9 @@ void mode_set_all(void * user_data) {
 void mode_animate_sequential(void * user_data) {
   int led = state;
   led_fade(led, 255, 300);
+  led_signal(led, mode_animate_sequential, 0);
   led_delay(led, 300);
   led_fade(led, 0, 300);
-  led_signal(led, mode_animate_sequential, 0);
   ++state;
   if (state >= LED_COUNT) {
     state = 0;
@@ -44,10 +45,10 @@ void mode_animate_sequential(void * user_data) {
 
 void mode_animate_random(void * user_data) {
   int led = led_random_from_idle();
-  led_fade(led, 255, 300);
+  led_fade(led, 255, ANIMATE_RANDOM_DURATION_MS);
   led_signal(led, mode_animate_random, 0);
-  led_delay(led, 300);
-  led_fade(led, 0, 300);
+  led_delay(led, ANIMATE_RANDOM_DURATION_MS);
+  led_fade(led, 0, ANIMATE_RANDOM_DURATION_MS);
 }
 
 void mode_animate_sequential_seizure(void * user_data) {
@@ -55,7 +56,7 @@ void mode_animate_sequential_seizure(void * user_data) {
   led_fade(led, 255, 5);
   led_delay(led, 10);
   led_fade(led, 0, 0);
-  led_signal(led, mode_animate_nicholas, 0);
+  led_signal(led, mode_animate_sequential_seizure, 0);
   ++state;
   if (state >= LED_COUNT) {
     state = 0;
