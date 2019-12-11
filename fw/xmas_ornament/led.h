@@ -27,6 +27,7 @@ void led_clear();
 void led_write(int led, int value);
 void leds_write_all(int value);
 bool led_is_idle(int led);
+int led_random_from_idle();
 void led_set(int led, int value);
 void led_fade(int led, int value, int duration_ms);
 void led_delay(int led, int duration_ms);

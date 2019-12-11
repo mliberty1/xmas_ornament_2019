@@ -71,6 +71,16 @@ bool led_is_idle(int led) {
   return (led_commands_[led][0].cmd == LED_CMD_IDLE);
 }
 
+int led_random_from_idle() {
+  int led = -1;
+  while (1) {
+    led = random(LED_COUNT);
+    if (led_is_idle(led)) {
+      return led;
+    }
+  }
+}
+
 static struct led_command_s * led_cmd_next(int led) {
   if ((led < 0) || (led >= LED_COUNT)) {
     return 0;
