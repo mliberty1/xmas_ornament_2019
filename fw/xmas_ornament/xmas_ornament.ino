@@ -1,10 +1,23 @@
-// https://learn.adafruit.com/how-to-program-samd-bootloaders
-// https://adafruit.github.io/arduino-board-index/package_adafruit_index.json
-// https://learn.adafruit.com/adafruit-feather-m0-basic-proto/using-with-arduino-ide
-// https://github.com/bportaluri/ALA
+
+/* Liberty family Christmas ornament 2019
+ * Arduino software for the SAMD21 (like Adafruit Feather M0 basic)
+ */
+
+/*
+Instructions:
+
+You can animate each LED using the asychronous commands:
+   * led_set: set the LED intensity.
+   * led_fade: smoothly transition from current intensity to a new intensity
+   * led_delay: wait at the current intensity
+   * led_signal: signal a function, which can program more commands.
+
+The animation for each LED runs in parallel and independently.
+However, you can chain together animations using the signal
+callback.
+*/
 
 #include "led.h"
-
 
 const uint8_t leds[LED_COUNT] = {LED_10, LED_09, LED_08, LED_07, LED_06, LED_05, LED_02, LED_03, LED_04, LED_01};
 
@@ -17,7 +30,6 @@ struct button_state_s {
 button_state_s button_ = {false, 0, 1};
 int mode = 0;
 int state = 0;
-
 
 void mode_sequential_analog() {
   for (int i = 0; i <= 255; ++i) {
@@ -86,7 +98,7 @@ void mode_animate_random(void * user_data) {
 }
 
 void mode_wait_for_button(void * user_data) {
-  // todo
+  // todo enter low power state
 }
 
 struct mode_s {
@@ -139,4 +151,6 @@ void loop() {
   if (modes[mode].process) {
     modes[mode].process(modes[mode].user_data);
   }
+
+  // todo enter low power automatically when on battery.
 }

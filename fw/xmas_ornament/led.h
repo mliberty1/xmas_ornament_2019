@@ -28,6 +28,7 @@ void led_clear();
 void led_write(int led, int value);
 void leds_write_all(int value);
 bool led_is_idle(int led);
+void led_set(int led_idx, int value);
 void led_fade(int led_idx, int value, int duration_ms);
 void led_delay(int led_idx, int duration_ms);
 void led_signal(int led_idx, callback_fn cbk_fn, void * cbk_user_data);

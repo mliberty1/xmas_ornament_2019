@@ -86,6 +86,10 @@ static struct led_command_s * led_cmd_next(int led_idx) {
   return led_cmd_clear(&led_commands_[led_idx][COMMANDS_PER_LED - 1]);
 }
 
+void led_set(int led_idx, int value) {
+  led_fade(idx, value, 0);
+}
+
 void led_fade(int led_idx, int value, int duration_ms) {
   struct led_command_s * c = led_cmd_next(led_idx);
   if (c) {
