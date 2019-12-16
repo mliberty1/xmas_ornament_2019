@@ -27,6 +27,7 @@ you can replace the Feather M0 Express definition:
 
     cp arduino\variant.cpp "%LOCALAPPDATA%\Arduino15\packages\adafruit\hardware\samd\1.5.7\variants\feather_m0_express\variant.cpp"
 
+
 ## Manufacturing
 
 * Surface mount all parts except LEDs and battery holder.

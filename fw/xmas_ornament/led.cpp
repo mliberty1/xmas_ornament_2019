@@ -2,9 +2,17 @@
 #include <string.h>  // memset
 #include <math.h>
 #include <Arduino.h>
+#include "wiring_private.h"
 
 int pwm_table[256];
 
+
+struct tc_isr_update_s {
+  int8_t active;
+  uint16_t cc;
+};
+
+struct tc_isr_update_s tc_update[1][2];
 
 struct led_state_s {
   bool active;
@@ -37,28 +45,109 @@ static struct led_command_s * led_cmd_clear(struct led_command_s * c) {
   return c;
 }
 
+void TC3_Handler (void) {
+  Tc* TCx = TC3;
+  TC3->COUNT16.INTFLAG.bit.MC0 = 1;
+  TC3->COUNT16.INTFLAG.bit.MC1 = 1;
+  for (uint8_t channel = 0; channel < 2; channel++) {
+    if (tc_update[0][channel].active) {
+      tc_update[0][channel].active = 0;
+      TCx->COUNT16.CC[channel].reg = tc_update[0][channel].cc;
+    }
+  }
+}
+
 void led_initialize() {
   float r = 255 * log10f(2) / (log10f(powf(2, ADC_BITS) - 1));
   for (int i = 0; i < 256; ++i) {
     pwm_table[i] = (int) (round(powf(2, i / r) - 1));
   }
+  for (int i = 0; i < LED_COUNT; ++i) {
+    analogWrite(leds[i], 0);
+  }
+  led_clear();
+
+  NVIC_DisableIRQ(TC3_IRQn);
+  NVIC_ClearPendingIRQ(TC3_IRQn);
+  NVIC_SetPriority(TC3_IRQn, 0);
+  NVIC_EnableIRQ(TC3_IRQn);
+  TC3->COUNT16.INTENSET.bit.MC0 = 1;
+  TC3->COUNT16.INTENSET.bit.MC1 = 1;
 }
 
 void led_clear() {
   for (int i = 0; i < LED_COUNT; ++i) {
     led_write(i, 0);
   }
+  memset(&tc_update, 0, sizeof(tc_update));
   memset(&led_commands_, 0, sizeof(led_commands_));
   memset(&led_state_, 0, sizeof(led_state_));
 }
 
+// Wait for synchronization of registers between the clock domains
+static __inline__ void syncTC_16(Tc* TCx) __attribute__((always_inline, unused));
+static void syncTC_16(Tc* TCx) {
+  while (TCx->COUNT16.STATUS.bit.SYNCBUSY);
+}
+
+// Wait for synchronization of registers between the clock domains
+static __inline__ void syncTCC(Tcc* TCCx) __attribute__((always_inline, unused));
+static void syncTCC(Tcc* TCCx) {
+  while (TCCx->SYNCBUSY.reg & TCC_SYNCBUSY_MASK);
+}
+
+void pwm_write(int pin, int value) {
+  PinDescription pinDesc = g_APinDescription[pin];
+  uint32_t attr = pinDesc.ulPinAttribute;
+
+  if ((attr & PIN_ATTR_PWM) == PIN_ATTR_PWM) {
+    uint32_t tcNum = GetTCNumber(pinDesc.ulPWMChannel);
+    uint8_t tcChannel = GetTCChannelNumber(pinDesc.ulPWMChannel);
+    static bool tcEnabled[TCC_INST_NUM+TC_INST_NUM];
+    if (attr & PIN_ATTR_TIMER) {
+      pinPeripheral(pin, PIO_TIMER);
+    } else if ((attr & PIN_ATTR_TIMER_ALT) == PIN_ATTR_TIMER_ALT){
+      //this is on an alt timer
+      pinPeripheral(pin, PIO_TIMER_ALT);
+    } else {
+      return;
+    }
+
+    if (tcNum >= TCC_INST_NUM) {
+      Tc* TCx = (Tc*) GetTC(pinDesc.ulPWMChannel);
+      noInterrupts();
+      uint16_t value_prev = TCx->COUNT16.CC[tcChannel].reg;
+      uint16_t count = TCx->COUNT16.COUNT.reg;
+      if ((value < value_prev) && (count < value_prev)) {
+        interrupts();
+        tc_update[0][tcChannel].cc = value;
+        tc_update[0][tcChannel].active = 1;
+      } else {
+        TCx->COUNT16.CC[tcChannel].reg = (uint32_t) value;
+        interrupts();
+        syncTC_16(TCx);
+      }
+    } else {
+      Tcc* TCCx = (Tcc*) GetTC(pinDesc.ulPWMChannel);
+      TCCx->CTRLBSET.bit.LUPD = 1;
+      syncTCC(TCCx);
+      TCCx->CCB[tcChannel].reg = (uint32_t) value;
+      syncTCC(TCCx);
+      TCCx->CTRLBCLR.bit.LUPD = 1;
+      syncTCC(TCCx);
+    }
+  }
+}
+
 void led_write(int led, int value) {
+  int pin = leds[led];
   if (value < 0) {
     value = 0;
   } else if (value > 255) {
     value = 255;
   }
-  analogWrite(leds[led], pwm_table[value]);
+  value = pwm_table[value];
+  pwm_write(pin, value);
 }
 
 void leds_write_all(int intensity) {

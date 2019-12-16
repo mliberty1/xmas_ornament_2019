@@ -16,7 +16,7 @@
 #define COMMANDS_PER_LED (128)
 
 #define ARRAY_SIZE(x) (sizeof(x) / sizeof(x[0]))
-#define ADC_BITS (12)
+#define ADC_BITS (16)
 #define LED_COUNT (10)
 extern const uint8_t leds[LED_COUNT];
 
