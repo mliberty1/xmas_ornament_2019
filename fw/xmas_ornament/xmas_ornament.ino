@@ -18,14 +18,24 @@ However, you can chain together animations using the signal
 callback.
 */
 
+//https://github.com/adafruit/Adafruit_ZeroTimer/
+// https://www.avdweb.nl/arduino/adc-dac/samd21-pwm-dac
+
 #include "led.h"
 #include "button.h"
+#include <ArduinoLowPower.h>
 
+#define PIN_BATTERY_N A3
 const uint8_t leds[LED_COUNT] = {LED_10, LED_09, LED_08, LED_07, LED_06, LED_05, LED_02, LED_03, LED_04, LED_01};
 const int ANIMATE_RANDOM_DURATION_MS = 500;
+const int ALTERNATE_FADE_MS = 500;
+const int ALTERNATE_ON_MS = 500;
+const int RUN_DURATION_MINUTES = 20;  // ~20 mA, ~620 mAh
+const int RUN_DURATION_MS = RUN_DURATION_MINUTES * 60000;
 
 int mode = 0;
 int state = 0;
+int time_start = 0;
 
 void mode_set_all(void * user_data) {
   leds_write_all((int) user_data);
@@ -43,10 +53,14 @@ void mode_animate_sequential(void * user_data) {
   }
 }
 
-void mode_animate_random(void * user_data) {
-  int led = led_random_from_idle();
+void mode_star_random(void * user_data) {
+  int led = 4;
+  while (led == 4) {
+    led = led_random_from_idle();
+  }
+  led_fade(4, 191 + random(64), ANIMATE_RANDOM_DURATION_MS);
   led_fade(led, 255, ANIMATE_RANDOM_DURATION_MS);
-  led_signal(led, mode_animate_random, 0);
+  led_signal(led, mode_star_random, 0);
   led_delay(led, ANIMATE_RANDOM_DURATION_MS);
   led_fade(led, 0, ANIMATE_RANDOM_DURATION_MS);
 }
@@ -63,8 +77,21 @@ void mode_animate_sequential_seizure(void * user_data) {
   }
 }
 
+void mode_alternate(void * user_data) {
+  for (int led = state; led < 10; led += 2) {
+    led_fade(led, 255, ALTERNATE_FADE_MS);
+    led_delay(led, ALTERNATE_ON_MS);
+    if (led == state) {
+      led_signal(led, mode_alternate, 0);
+    }
+    led_fade(led, 0, ALTERNATE_FADE_MS);
+  }
+  state = (state + 1) & 1;
+}
+
 void mode_wait_for_button(void * user_data) {
-  // todo enter low power state
+  mode = 0;
+  on_sleep();
 }
 
 struct mode_s {
@@ -76,16 +103,28 @@ struct mode_s {
 // Define the modes: each button press switches to the next mode.
 // Modify this structure to add your mode!
 struct mode_s modes[] = {
-  {0, mode_animate_random, led_animate},
+  {0, mode_star_random, led_animate},
   {0, mode_animate_sequential_seizure, led_animate},
   {0, mode_animate_sequential, led_animate},
+  {0, mode_alternate, led_animate},
   {(void *) 0, mode_set_all, mode_wait_for_button}  // off
 };
-
 
 // ----------------------------------------------------------------
 // Animation engine: do not modify code below
 // ----------------------------------------------------------------
+
+void on_sleep() {
+  led_clear();
+  leds_write_all(0);
+  LowPower.sleep();
+  state = 0;
+  time_start = millis();
+  modes[mode].initialize(modes[mode].user_data);  
+}
+
+void on_wakeup() {
+}
 
 void setup() {
   analogWriteResolution(ADC_BITS);
@@ -106,13 +145,17 @@ void setup() {
   if (modes[mode].initialize) {
     modes[mode].initialize(modes[mode].user_data);
   }
+  LowPower.attachInterruptWakeup(BUTTON, on_wakeup, FALLING);
+  time_start = millis();
 }
 
 void loop() {
-  if (button_debounce()) {
+  int runtime_ms = millis() - time_start;
+  if (button_debounce() && runtime_ms > 50) {
       Serial.println("button pressed");
       led_clear();
       ++mode;
+      time_start = millis();
       if (mode >= ARRAY_SIZE(modes)) {
         mode = 0;
       }
@@ -126,5 +169,7 @@ void loop() {
     modes[mode].process(modes[mode].user_data);
   }
 
-  // todo enter low power automatically when on battery.
+  if (!digitalRead(POWER_USB) && (runtime_ms > RUN_DURATION_MS)) {
+    on_sleep();
+  }
 }
