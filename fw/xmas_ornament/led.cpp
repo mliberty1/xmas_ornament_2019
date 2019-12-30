@@ -76,12 +76,10 @@ void led_initialize() {
 }
 
 void led_clear() {
-  for (int i = 0; i < LED_COUNT; ++i) {
-    led_write(i, 0);
-  }
   memset(&tc_update, 0, sizeof(tc_update));
   memset(&led_commands_, 0, sizeof(led_commands_));
   memset(&led_state_, 0, sizeof(led_state_));
+  leds_write_all(0);
 }
 
 // Wait for synchronization of registers between the clock domains
